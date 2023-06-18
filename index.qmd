@@ -141,7 +141,6 @@ posic_header <- "center"
 #| echo: false
 #| column: screen-inset
 
-
 reactable(
   # datos
   data = datos, 
@@ -213,7 +212,6 @@ reactable(
         tagList(
           div(style = "display: inline-block; width: 80px", image))}),
     Album = colDef(
-      # filterable = TRUE,
       headerStyle = list(
         fontFamily = fuente_header, color = c4, fontSize = tamaño_header),
       width = 250,
@@ -231,10 +229,7 @@ reactable(
       width = 40,
       align = "right",
       cell = function(value) {
-        glue("<a href={value}><span style='color:#621f5e'>{fa('arrow-up-right-from-square')}</span></a>")
-      }
-    )
-  ),
+        glue("<a href={value}><span style='color:#621f5e'>{fa('arrow-up-right-from-square')}</span></a>")})),
   highlight = TRUE,
   striped = TRUE,
   # tema general de la tabla
@@ -244,8 +239,7 @@ reactable(
     borderColor = c2,
     highlightColor = "#fad7e2",
     stripedColor = "#ffe6ee",
-    searchInputStyle = list(backgroundColor = c2, color = c4)
-  )
+    searchInputStyle = list(backgroundColor = c2, color = c4))
 )
 
 ```
