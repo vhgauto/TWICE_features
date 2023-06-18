@@ -246,6 +246,10 @@ reactable(
 
 <br> <br> <br>
 
+::: column-screen
+![](imagen/img.png){fig-align="center" width="100%"}
+:::
+
 <!-- caption -->
 
 ::: {style="text-align: center"}
