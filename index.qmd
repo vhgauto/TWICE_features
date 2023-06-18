@@ -1,0 +1,259 @@
+---
+format: 
+  html:
+    linkcolor: "#621f5e"
+    self-contained: true
+editor: source
+backgroundcolor: "#f9e0e8"
+link-external-newwindow: true
+editor_options: 
+  chunk_output_type: console
+---
+
+::: column-screen
+![](imagen/img.png){fig-align="center" width="100%"}
+:::
+
+```{r}
+#| echo: false
+#| warning: false
+
+library(reactable)
+library(htmltools)
+library(showtext)
+library(glue)
+library(fontawesome)
+library(tidyverse)
+library(tippy)
+
+c1 <- "#f9e0e8"
+c2 <- "#f9b4c9"
+c3 <- "#d8527c"
+c4 <- "#9a153d"
+
+# ejecuto el script que genera la base de datos
+source("script/datos.R")
+
+# leo los datos
+datos <- read_tsv("datos/d.tsv") |> 
+  # remuevo las comillas en The Year of Yes
+  mutate(Album = str_replace_all(Album, '"', "")) |> 
+  # cambio 'Twice' a 'TWICE' en todas las instancias, ídem 'Bdz 
+  mutate(Album = str_replace_all(Album, "Twice ", "TWICE ")) |> 
+  mutate(Album = str_replace_all(Album, "Bdz", "BDZ"))
+
+# features
+feat <- read_tsv("datos/features.tsv") |> 
+  mutate(desc = str_wrap(desc, width = 80)) |> 
+  mutate(desc = glue("<span style='color:{c1}; font-family:Figtree;'>{desc}</span>"))
+
+# íconos
+font_add("fa-brands", "../icon/Font Awesome 6 Brands-Regular-400.otf")
+font_add("fa-solid", "../icon/Font Awesome 6 Free-Solid-900.otf")
+
+# caption
+icon_twitter <- glue("{fa('twitter', fill = '#d8527c')}/")
+icon_github <- glue("{fa('github', fill = '#d8527c')}/")
+datos2 <- glue("<span style='color:#d8527c; font-family:Figtree;'>Datos:</span> <span style='color:#9a153d; font-family:mono'>**{{spotifyr}}**</span><span style='color:#9a153d;'>, Spotyfy web API</span>")
+autor <- glue("<span style='color:#d8527c; font-family:Figtree;'>Autor:</span> <b style='color:#9a153d; font-family:Figtree;'>Víctor Gauto</b>")
+sep <- glue("<b style = 'color:#9a153d;'>|</b>")
+usuario <- glue("<b style = 'color:#9a153d; font-family:Figtree;'>vhgauto</b>")
+
+mi_caption <- glue("{datos2} {sep} {autor} {sep} {icon_github} {icon_twitter} {usuario}")
+
+tw_twitter <- glue("{fa('twitter', fill = c3)}")
+tw_instagram <- glue("{fa('instagram', fill = c3)}")
+tw_facebook <- glue("{fa('facebook', fill = c3)}")
+tw_tiktok <- glue("{fa('tiktok', fill = c3)}")
+tw_youtube <- glue("{fa('youtube', fill = c3)}")
+tw_spotify <- glue("{fa('spotify', fill = c3)}")
+
+ancho_feat <- 150
+
+# Render a bar chart with a label on the left
+# browseURL("https://glin.github.io/reactable/articles/cookbook/cookbook.html?q=back#bar-charts")
+
+bar_chart <- function(label, width = "100%", height = "1rem", fill = c3, background = c2) {
+  bar <- div(style = list(background = fill, width = width, height = height))
+  chart <- div(style = list(flexGrow = 1, marginLeft = "0.5rem", background = background), bar)
+  div(style = list(display = "flex", alignItems = "center"), chart)
+}
+
+# browseURL("https://glin.github.io/reactable/articles/cookbook/cookbook.html#tooltips")
+# See the ?tippy documentation to learn how to customize tooltips
+with_tooltip <- function(value, tooltip, ...) {
+  div(style = "text-decoration: underline; 
+      text-decoration-color: #f9b4c9;
+      text-decoration-style: solid;
+      cursor: help",
+      tippy(value, tooltip, ...))
+}
+
+# Inline embedded images  
+# browseURL("https://glin.github.io/reactable/articles/cookbook/cookbook.html?q=image#inline-embedded-images")
+
+# Insert links
+# browseURL("https://glin.github.io/reactable/articles/cookbook/cookbook.html#insert-links")
+
+# layout del output del chunk
+# browseURL("https://quarto.org/docs/authoring/article-layout.html")
+
+```
+
+```{r, echo=FALSE}
+# Add a custom font from Google Fonts
+htmltools::tags$link(
+  href = "https://fonts.googleapis.com/css2?family=Squada+One&display=swap",
+  rel = "stylesheet")
+
+htmltools::tags$link(
+  href = "https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap",
+  rel = "stylesheet")
+
+htmltools::tags$link(
+  href = "https://fonts.googleapis.com/css2?family=Domine&display=swap",
+  rel = "stylesheet")
+
+htmltools::tags$link(
+  href = "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;1,300&display=swap",
+  rel = "stylesheet")
+
+htmltools::tags$link(
+  href = "https://fonts.googleapis.com/css2?family=Poltawski+Nowy&display=swap",
+  rel = "stylesheet")
+
+fuente_header <- "Poltawski"
+tamaño_header <- 20
+posic_header <- "center"
+```
+
+<!-- título -->
+
+[⋆｡°✩]{style="font-family: 'DM Serif Display';color:#f9b4c9; font-size:70px"} [TWICE]{style="font-family: 'DM Serif Display';color:#9a153d; font-size:150px"} [✩°｡⋆]{style="font-family: 'DM Serif Display';color:#f9b4c9; font-size:70px"}
+
+<br>
+
+::: {style="text-align: center; font-size:20px"}
+[Official links:]{style="font-family: 'Poltawski';color:#9a153d"} [`r tw_twitter`](https://twitter.com/JYPETWICE) `r sep` [`r tw_instagram`](https://www.instagram.com/twicetagram/) `r sep` [`r tw_youtube`](https://youtube.com/@TWICE) `r sep` [`r tw_tiktok`](https://www.tiktok.com/@twice_tiktok_official) `r sep` [`r tw_facebook`](https://www.facebook.com/JYPETWICE) `r sep` [`r tw_spotify`](https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0) `r sep``r sep` [JP:]{style="font-family: 'Poltawski';color:#9a153d"} [`r tw_twitter`](https://twitter.com/JYPETWICE_JAPAN) `r sep` [`r tw_instagram`](https://www.instagram.com/jypetwice_japan/) `r sep` [`r tw_youtube`](https://youtube.com/@twicejapan_official) `r sep` [`r tw_tiktok`](https://www.tiktok.com/@twice_tiktok_officialjp)
+:::
+
+```{r}
+#| echo: false
+#| column: screen-inset
+
+
+reactable(
+  # datos
+  data = datos, 
+  # orden predeterminado por columna 'Track'
+  defaultSorted = "Track",
+  # buscado en toda la tabla
+  searchable = TRUE,
+  # todas las filas, sin páginas con una selección de filas
+  pagination = FALSE,
+  # barras en columnas
+  columns = list(
+    Speechiness = colDef(
+      defaultSortOrder = "desc",
+      header = with_tooltip("Speechiness", feat$desc[7]),
+      width = ancho_feat,
+      headerStyle = list(
+        fontFamily = fuente_header, color = c4, fontSize = tamaño_header),
+      align = posic_header,
+      cell = function(value) {
+        width <- paste0(value / max(datos$Speechiness) * 100, "%")
+        bar_chart(value, width = width)}),
+    Acousticness = colDef(
+      defaultSortOrder = "desc",
+      header = with_tooltip("Acousticness", feat$desc[1]),
+      width = ancho_feat,
+      headerStyle = list(
+        fontFamily = fuente_header, color = c4, fontSize = tamaño_header),
+      align = posic_header,
+      cell = function(value) {
+        width <- paste0(value / max(datos$Acousticness) * 100, "%")
+        bar_chart(value, width = width)}),
+    Liveness = colDef(
+      defaultSortOrder = "desc",
+      header = with_tooltip("Liveness", feat$desc[5]),
+      width = ancho_feat,
+      headerStyle = list(
+        fontFamily = fuente_header, color = c4, fontSize = tamaño_header),
+      align = posic_header,
+      cell = function(value) {
+        width <- paste0(value / max(datos$Liveness) * 100, "%")
+        bar_chart(value, width = width)}),
+    Valence = colDef(
+      defaultSortOrder = "desc",
+      header = with_tooltip("Valence", feat$desc[9]),
+      width = ancho_feat,
+      headerStyle = list(
+        fontFamily = fuente_header, color = c4, fontSize = tamaño_header),
+      align = posic_header,
+      cell = function(value) {
+        width <- paste0(value / max(datos$Valence) * 100, "%")
+        bar_chart(value, width = width)}),
+    Energy = colDef(
+      defaultSortOrder = "desc",
+      header = with_tooltip("Energy", feat$desc[3]),
+      width = ancho_feat,
+      headerStyle = list(
+        fontFamily = fuente_header, color = c4, fontSize = tamaño_header),
+      align = posic_header,
+      cell = function(value) {
+        width <- paste0(value / max(datos$Energy) * 100, "%")
+        bar_chart(value, width = width)}),
+    Url_img = colDef(
+      name = "",
+      sortable = FALSE,
+      align = "right", 
+      width = 150,
+      cell = function(value) {
+        image <- img(src = value, style = "height: 60px;", alt = value)
+        tagList(
+          div(style = "display: inline-block; width: 80px", image))}),
+    Album = colDef(
+      # filterable = TRUE,
+      headerStyle = list(
+        fontFamily = fuente_header, color = c4, fontSize = tamaño_header),
+      width = 250,
+      style = list(fontStyle = "italic", color = c4, fontFamily = "Figtree")),
+    Track = colDef(
+      headerStyle = list(
+        fontFamily = fuente_header, color = c4, fontSize = tamaño_header),
+      width = 300,
+      style = list(color = c4, fontFamily = "Figtree")),
+    Link = colDef(
+      sortable = FALSE,
+      searchable = FALSE,
+      name = glue("{fa(name = 'music', fill = c4)}"),
+      html = TRUE,
+      width = 40,
+      align = "right",
+      cell = function(value) {
+        glue("<a href={value}><span style='color:#621f5e'>{fa('arrow-up-right-from-square')}</span></a>")
+      }
+    )
+  ),
+  highlight = TRUE,
+  striped = TRUE,
+  # tema general de la tabla
+  theme = reactableTheme(
+    backgroundColor = c1,
+    headerStyle = list(borderColor = c2),
+    borderColor = c2,
+    highlightColor = "#fad7e2",
+    stripedColor = "#ffe6ee",
+    searchInputStyle = list(backgroundColor = c2, color = c4)
+  )
+)
+
+```
+
+<br> <br> <br>
+
+<!-- caption -->
+
+::: {style="text-align: center"}
+`r datos2` `r sep` `r autor` `r sep` [`r icon_twitter``r usuario`](https://twitter.com/vhgauto) `r sep` [`r icon_github``r usuario`](https://github.com/vhgauto)
+:::
