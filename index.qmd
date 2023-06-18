@@ -32,7 +32,7 @@ c3 <- "#d8527c"
 c4 <- "#9a153d"
 
 # ejecuto el script que genera la base de datos
-source("script/datos.R")
+# source("script/datos.R")
 
 # leo los datos
 datos <- read_tsv("datos/d.tsv") |> 
