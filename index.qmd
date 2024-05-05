@@ -4,9 +4,9 @@ format:
     linkcolor: "#621f5e"
     self-contained: true
     include-in-header: header.html
+    link-external-newwindow: true
 editor: source
 backgroundcolor: "#f9e0e8"
-link-external-newwindow: true
 editor_options: 
   chunk_output_type: console
 ---
@@ -138,9 +138,10 @@ posic_header <- "center"
 [Official links:]{style="font-family: 'Poltawski';color:#9a153d"} [`r tw_twitter`](https://twitter.com/JYPETWICE) `r sep` [`r tw_instagram`](https://www.instagram.com/twicetagram/) `r sep` [`r tw_youtube`](https://youtube.com/@TWICE) `r sep` [`r tw_tiktok`](https://www.tiktok.com/@twice_tiktok_official) `r sep` [`r tw_facebook`](https://www.facebook.com/JYPETWICE) `r sep` [`r tw_spotify`](https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0) `r sep``r sep` [JP:]{style="font-family: 'Poltawski';color:#9a153d"} [`r tw_twitter`](https://twitter.com/JYPETWICE_JAPAN) `r sep` [`r tw_instagram`](https://www.instagram.com/jypetwice_japan/) `r sep` [`r tw_youtube`](https://youtube.com/@twicejapan_official) `r sep` [`r tw_tiktok`](https://www.tiktok.com/@twice_tiktok_officialjp)
 :::
 
+:::{.column-screen-inset}
+
 ```{r}
 #| echo: false
-#| column: screen
 
 reactable(
   # datos
@@ -248,6 +249,7 @@ reactable(
 )
 
 ```
+:::
 
 <br> <br> <br>
 
