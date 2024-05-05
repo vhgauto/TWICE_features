@@ -3,6 +3,7 @@ format:
   html:
     linkcolor: "#621f5e"
     self-contained: true
+    include-in-header: header.html
 editor: source
 backgroundcolor: "#f9e0e8"
 link-external-newwindow: true
