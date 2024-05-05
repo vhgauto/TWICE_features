@@ -140,7 +140,7 @@ posic_header <- "center"
 
 ```{r}
 #| echo: false
-#| column: screen-inset
+#| column: screen
 
 reactable(
   # datos
@@ -240,7 +240,11 @@ reactable(
     borderColor = c2,
     highlightColor = "#fad7e2",
     stripedColor = "#ffe6ee",
-    searchInputStyle = list(backgroundColor = c2, color = c4))
+    searchInputStyle = list(backgroundColor = c2, color = c4)),
+  language = reactableLang(
+    searchPlaceholder = "Search...",
+    noData = "No entries found"
+  )
 )
 
 ```
